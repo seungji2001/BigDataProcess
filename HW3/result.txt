@@ -1,0 +1,17 @@
+Animation 2
+Children's 3
+Comed 4
+Adventure 6
+Fantas 1
+Comedy 8
+Romanc 10
+Dram 9
+Action 4
+Crime 2
+Thrille 6
+Children' 2
+Actio 2
+Drama 8
+Horro 1
+Sci-F 3
+Documentar 1
