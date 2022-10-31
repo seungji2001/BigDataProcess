@@ -26,8 +26,8 @@ dayofweek=['MON','TUE','WED','THU','FRI','SAT','SUN']
 diction=dict()
 with open(inputfile,'r') as fp:
 	for line in fp:
-		a = line[:-2]
-		arr1 = a.split(',')
+		new_line = line.replace('\n','')
+		arr1 = new_line.split(',')
 		d = arr1[1].split('/')
 		day = findDay(d)
 		line_key = arr1[0]+','+dayofweek[day]	
