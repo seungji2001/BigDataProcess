@@ -19,15 +19,15 @@ with open(inputfile,'r') as rf:
 		arr = line.split(',')
 		regionday = arr[0]+','+findweekday(arr[1])  
 		if regionday not in dictionary:	
-			vehicles=int(arr[2])
-			trips=int(arr[3]) 	
-			vehiclestrips=str(vehicles)+','+str(trips)
+			vehiclestrips=arr[2] +','+arr[3]
 			dictionary[regionday]=vehiclestrips
 		else:
-			vehicles+=int(arr[2])
-			trips+=int(arr[3])
+			vehiclestrip = dictionary[regionday].split(',')
+			vehicles = int(vehiclestrip[0]) + int(arr[2])
+			trips = int(vehiclestrip[1]) + int(arr[3])
 			vehiclestrips=str(vehicles)+','+str(trips)
 			dictionary[regionday]=vehiclestrips
+	
 
 with open(outputfile,'w') as of:
 	for line in dictionary:
