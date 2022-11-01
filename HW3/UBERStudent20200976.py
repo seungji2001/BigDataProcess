@@ -4,41 +4,32 @@ import sys
 import calendar
 
 inputfile = sys.argv[1]
-outputfile = sys.argv[2]
+outputfile=sys.argv[2]
 
-def findDay(d):
-	year = d[2]
-	month = d[0]
-	date = d[1]
-	day = calendar.weekday(int(year), int(month), int(date))
-	
-	return day
-	
+def findweekday(day):
+	weekofday=['MON','TUE','WED','THU','FRI','SAT','SUN']
+	d = day.split('/')
+	dnum = calendar.weekday(int(d[2]),int(d[0]),int(d[1]))
+	return weekofday[dnum]
 
-def makeValues(line,v,t):
-	a = line.split(',')
-	v += a[0]
-	t += a[1]
-	r = str(v) + ',' + str(t)
-	return r
-
-dayofweek=['MON','TUE','WED','THU','FRI','SAT','SUN']
-diction=dict()
-with open(inputfile,'r') as fp:
-	for line in fp:
-		new_line = line.replace('\n','')
-		arr1 = new_line.split(',')
-		d = arr1[1].split('/')
-		day = findDay(d)
-		line_key = arr1[0]+','+dayofweek[day]	
-		vehicles=arr1[2]
-		trips=arr1[3]
-		if line_key in diction:
-			diction[line_key]=makeValues(diction[line_key],vehicles,trips)
+dictionary = dict()
+with open(inputfile,'r') as rf:
+	totalline=rf.read().splitlines()
+	for line in totalline:
+		arr = line.split(',')
+		regionday = arr[0]+','+findweekday(arr[1])  
+		if regionday not in dictionary:	
+			vehicles=int(arr[2])
+			trips=int(arr[3]) 	
+			vehiclestrips=str(vehicles)+','+str(trips)
+			dictionary[regionday]=vehiclestrips
 		else:
-			diction[line_key]=str(vehicles) +','+str(trips)
-	list(diction.keys()).sort()		
+			vehicles+=int(arr[2])
+			trips+=int(arr[3])
+			vehiclestrips=str(vehicles)+','+str(trips)
+			dictionary[regionday]=vehiclestrips
+
 with open(outputfile,'w') as of:
-	for line in diction:
-		of.write(line + ' ' + diction[line])
+	for line in dictionary:
+		of.write(line + ' ' + dictionary[line])
 		of.write('\n')
